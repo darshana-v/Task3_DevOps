@@ -1,11 +1,13 @@
 # Task 3
 
 
-# installing apache
+# installing apache and php
 sudo apt update
 sudo apt install apache2
 sudo ufw allow 'Apache'
 sudo ufw allow in "Apache Full" 
+
+sudo apt install php libapache2-mod-php php-mysql
 
 # enabling firewall
 sudo ufw enable
@@ -65,26 +67,36 @@ sudo apt-get install mysql-server
 
 
 # Accessing and entering into the MySQL shell
-sudo mysql -u root -p
-# <Enter the root password entered earlier>
-# To exit MySQL cl client, enter <exit;>
+sudo mysql 
+create database message_app;
+CREATE USER 'user'@'%' IDENTIFIED WITH mysql_native_password BY 'pass';
+GRANT ALL ON message_app.* TO 'user'@'%';
+
+exit
+
+### Now login with 'user' and 'pass'
+mysql -u user -p
+# provide password
+
 
 # the following code happens in the mysql interface
-# creating a database with two tables
-create database message_app;
 
 use message_app;
-create table users_table(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-username varchar(50),
-password varchar(50));
+create table users_table(id int(15) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+username TINYTEXT NOT NULL,
+password LONGTEXT NOT NULL);
 
 use message_app;
 create table updates_table(id int(10),
 receiver_id varchar(50),
 datetime DATETIME);
 
+exit;
 
 
+
+
+sudo cp -R localhost /var/www/localhost
 
 
 
